@@ -46,10 +46,41 @@ document.body.appendChild(container);
 
 container.style.position = 'fixed';
 container.style.left = '14px';
-container.style.bottom = '14px';
+container.style.top = '4px';  // Start at top 4px
 container.style.display = 'flex';
 container.style.flexDirection = 'column';
 container.style.zIndex = '1000';
+
+// Smooth scroll function
+function smoothScrollToBottom(targetPosition, duration) {
+    const startPosition = parseInt(container.style.top, 10);
+    const distance = targetPosition - startPosition;
+    const startTime = performance.now();
+
+    function animation(currentTime) {
+        const elapsedTime = currentTime - startTime;
+        const progress = Math.min(elapsedTime / duration, 1); // Ensure we don't go beyond 1
+        const easeInOutQuad = progress < 0.5 ? 2 * progress * progress : -1 + (4 - 2 * progress) * progress; // Easing function for smooth animation
+        const newPosition = startPosition + distance * easeInOutQuad;
+
+        container.style.top = `${newPosition}px`;
+
+        if (progress < 1) {
+            requestAnimationFrame(animation);
+        } else {
+            // Once animation is complete, set bottom
+            container.style.top = ''; // Clear top positioning
+            container.style.bottom = '14px'; // Move to bottom with a margin
+        }
+    }
+
+    requestAnimationFrame(animation);
+}
+
+// Move container smoothly after 200ms
+setTimeout(() => {
+    smoothScrollToBottom(window.innerHeight - 14 - container.offsetHeight, 500); // Set target position
+}, 200);
 
 function createButton(imageSrc, linkHref, baseColor, hoverColor) {
     const anchor = document.createElement('a');
