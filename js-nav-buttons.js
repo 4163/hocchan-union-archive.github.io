@@ -80,18 +80,9 @@ setTimeout(() => {
 }, 200);
 
 function createButton(imageSrc, linkHref, baseColor, hoverColor) {
-    // Get the current path's last segment (the filename) and decode it
     const currentPath = window.location.pathname;
     const currentFile = decodeURIComponent(currentPath.substring(currentPath.lastIndexOf('/') + 1));
-
-    // Check if the current page matches the link
     const isCurrentPage = currentFile === linkHref;
-
-    // Logging for debugging
-    console.log(`Checking link: ${linkHref}`);
-    console.log(`Current full path: ${currentPath}`);
-    console.log(`Detected current file (decoded): ${currentFile}`);
-    console.log(`Is this the active page? ${isCurrentPage}`);
 
     const buttonContainer = isCurrentPage ? document.createElement('div') : document.createElement('a');
     if (!isCurrentPage) {
@@ -109,8 +100,8 @@ function createButton(imageSrc, linkHref, baseColor, hoverColor) {
     button.style.cursor = 'pointer';
     button.style.overflow = 'hidden';
     button.style.backgroundColor = isCurrentPage ? hoverColor : baseColor;
-    button.style.transition = 'background-color 0.3s ease';
-    button.style.border = '2px solid #46a2a7';
+    button.style.transition = 'background-color 0.3s ease, border-color 0.3s ease';
+    button.style.border = isCurrentPage ? '2px solid #99946d' : '2px solid #46a2a7';
 
     const normalImg = document.createElement('img');
     const imagePath = getImagePath(imageSrc);
@@ -130,7 +121,7 @@ function createButton(imageSrc, linkHref, baseColor, hoverColor) {
     hoverImg.style.position = 'absolute';
     hoverImg.style.top = '0';
     hoverImg.style.left = '0';
-    hoverImg.style.opacity = isCurrentPage ? '1' : '0';  // Keep overlay visible if active
+    hoverImg.style.opacity = isCurrentPage ? '1' : '0';
     hoverImg.style.transition = 'opacity 0.3s ease';
 
     button.appendChild(normalImg);
@@ -139,12 +130,14 @@ function createButton(imageSrc, linkHref, baseColor, hoverColor) {
     button.addEventListener('mouseover', () => {
         hoverImg.style.opacity = '1';
         button.style.backgroundColor = hoverColor;
+        button.style.borderColor = '#99946d';
     });
 
     button.addEventListener('mouseout', () => {
         if (!isCurrentPage) {
             hoverImg.style.opacity = '0';
             button.style.backgroundColor = baseColor;
+            button.style.borderColor = '#46a2a7';
         }
     });
 
@@ -152,7 +145,6 @@ function createButton(imageSrc, linkHref, baseColor, hoverColor) {
     container.appendChild(buttonContainer);
 }
 
-// Testing log output for each button
 buttonData.forEach(data => {
     createButton(data.image, data.link, data.baseColor, data.hoverColor);
 });
