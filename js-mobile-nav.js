@@ -41,26 +41,25 @@ document.addEventListener("DOMContentLoaded", () => {
   toggleButton.appendChild(line3);
   console.log("Lines added");
 
-  // Create additional lines for the "redraw" effect
   const line4 = document.createElement("div");
   line4.style.width = "25px";
   line4.style.height = "2px";
   line4.style.backgroundColor = "#373737";
   line4.style.position = "absolute";
-  line4.style.top = "27px";       // Adjust this value to move line4 vertically
-  line4.style.right = "20px";     // Adjust this value to move line4 horizontally
+  line4.style.top = "27px";
+  line4.style.right = "20px";
   line4.style.transform = "rotate(-45deg)";
-  line4.style.opacity = "0";     // Hidden by default
+  line4.style.opacity = "0";
 
   const line5 = document.createElement("div");
   line5.style.width = "25px";
   line5.style.height = "2px";
-  line5.style.backgroundColor = "#373737";
+  line5.style.backgroundColor = "#373737"; // Minami color lol, Minaminaminami
   line5.style.position = "absolute";
-  line5.style.top = "27px";       // Adjust this value to move line5 vertically
-  line5.style.right = "20px";     // Adjust this value to move line5 horizontally
+  line5.style.top = "27px";
+  line5.style.right = "20px";
   line5.style.transform = "rotate(45deg)";
-  line5.style.opacity = "0";     // Hidden by default
+  line5.style.opacity = "0";
 
   toggleButton.appendChild(line4);
   toggleButton.appendChild(line5);
@@ -74,13 +73,34 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateButtonVisibility() {
+    const navMobile = document.querySelector("nav.nav-mobile");
+
     if (window.innerWidth <= 768) {
       toggleButton.classList.remove("sf-hidden");
       updateButtonWidth();
+
+      if (navMobile) {
+        // Restore the nav-mobile state when returning to small screen
+        navMobile.style.visibility = navMobileState.visibility;
+        navMobile.style.opacity = navMobileState.opacity;
+      }
     } else {
       toggleButton.classList.add("sf-hidden");
+
+      if (navMobile) {
+        // Clear nav-mobile visibility and opacity for larger screens
+        navMobile.style.visibility = "";
+        navMobile.style.opacity = "";
+      }
     }
   }
+
+  // Store nav-mobile initial state for small screen restoration
+  const navMobile = document.querySelector("nav.nav-mobile");
+  const navMobileState = {
+    visibility: navMobile ? navMobile.style.visibility || "hidden" : "hidden",
+    opacity: navMobile ? navMobile.style.opacity || "0" : "0",
+  };
 
   updateButtonVisibility();
   window.addEventListener("resize", () => {
@@ -91,27 +111,28 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   let navOpen = false;
-  let isAnimating = false; // Debounce flag to prevent spam clicks
+  let isAnimating = false;
 
   toggleButton.addEventListener("click", () => {
     if (isAnimating) {
       console.log("Animation in progress, ignoring click.");
-      return; // Ignore clicks while animation is in progress
+      return;
     }
 
-    isAnimating = true; // Set flag to prevent further clicks during animation
-
-    const navMobile = document.querySelector("nav.nav-mobile");
+    isAnimating = true;
     if (navMobile) {
       navOpen = !navOpen;
       navMobile.style.visibility = navOpen ? "visible" : "hidden";
       navMobile.style.opacity = navOpen ? "1" : "0";
 
+      // Update stored navMobileState to remember current state
+      navMobileState.visibility = navMobile.style.visibility;
+      navMobileState.opacity = navMobile.style.opacity;
+
       line1.style.transition = "transform 0.3s ease, top 0.3s ease, right 0.3s ease";
       line3.style.transition = "transform 0.3s ease, top 0.3s ease, right 0.3s ease, transform-origin 0.3s ease";
 
       if (navOpen) {
-        // Animate line1 and line3 to form an "X" and hide line2
         line1.style.top = "18px";
         line1.style.right = "24px";
         line1.style.transformOrigin = "top right";
@@ -122,16 +143,13 @@ document.addEventListener("DOMContentLoaded", () => {
         line3.style.transform = "rotate(-135deg)";
         line2.style.opacity = "0";
 
-        // Hide line1 and line3, then show line4 and line5 after 0.3s
         setTimeout(() => {
           line1.style.opacity = "0";
           line3.style.opacity = "0";
           line4.style.opacity = "1";
           line5.style.opacity = "1";
         }, 300);
-        
       } else {
-        // Reset line1, line3, and line2 visibility
         line1.style.top = "20px";
         line1.style.right = "20px";
         line1.style.transformOrigin = "top right";
@@ -142,7 +160,6 @@ document.addEventListener("DOMContentLoaded", () => {
         line3.style.transform = "rotate(0deg)";
         line2.style.opacity = "1";
 
-        // Immediately hide line4 and line5, and make line1 and line3 visible
         line4.style.opacity = "0";
         line5.style.opacity = "0";
         line1.style.opacity = "1";
@@ -154,10 +171,8 @@ document.addEventListener("DOMContentLoaded", () => {
       console.warn("No 'nav-mobile'");
     }
 
-    // Reset the debounce flag after 0.3 seconds
     setTimeout(() => {
       isAnimating = false;
     }, 300);
   });
-
 });
