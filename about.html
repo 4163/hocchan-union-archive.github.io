@@ -23,16 +23,26 @@
 	<style>#profile{width:1000px;margin:auto;display:flex}#profile #photo{margin:0 40px 0 0;height:523.45px}#profile #photo img{width:100%}#profile #detail{width:620px;background:rgba(255,255,255,0.5);border:1px solid #ededed;padding:40px}#profile #detail h3{line-height:0;margin:0 0 15px 0}#profile #detail .profile{margin:0 0 20px 0}#profile #detail .profile dl{font-size:1.6rem;border-top:1px solid #ededed;padding:10px 0;display:flex;flex-wrap:wrap}#profile #detail .profile dl:last-child{border-bottom:1px solid #ededed}#profile #detail .profile dl dt{padding-left:16px;border-left:2px solid #69c3c8;padding-right:16px;border-right:2px solid #69c3c8;width:auto;color:#69c3c8;text-align:center}#profile #detail .profile dl dd{padding:0 0 0 16px}@media (max-width:768px){#profile{width:100%;padding:0 40px;display:block}#profile #photo{width:100%;text-align:center;margin:0 0 20px 0}#profile #photo img{width:70%}#profile #detail{width:100%}}@media (max-width:640px){#profile{padding:0 20px}#profile #photo img{width:80%}#profile #detail{padding:25px}#profile #detail .profile dl{font-size:1.4rem}}</style>
 	<meta name="referrer" content="no-referrer">
 	<link rel="icon" type="image/png" href="images/favicon.png">
-	<style>.sf-hidden{display:none!important}</style>
+	<style>
+	.sf-hidden{display:none!important}
+	#pageTop{cursor:pointer;opacity:0;pointer-events:none;transition:opacity 0.2s}
+	body{display:flex;flex-direction:column; height:100%}
+	.HU{color:#69c3c8;text-decoration:none}
+	#wrapper{flex:1;display:flex;justify-content:center;align-items:center;flex-direction:column}
+	#wrapper>div:first-of-type{margin-bottom:86px}
+	#photo img{width:auto!important;height:100%}
+	#detail h3{color:#69c3c8;height:23px;font-size:24px}
+	#detail span{font-style:italic;font-size:10px}
+	</style>
 	<link rel="canonical" href="https://4163.github.io/hocchan-uninon-archive.github.io/about.html">
 	<meta http-equiv="content-security-policy" content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:; frame-src 'self' data:;">
 	<style>img[src="data:,"],source[src="data:,"]{display:none!important}</style>
 	<style type="text/css" id="operaUserStyle"></style>
 </head>
-<body style="display: flex; flex-direction: column; height: 100%;">
+<body>
 <header>
 	<div id="menu">
-		<h1><a href="index.html" style="color: #69c3c8; text-decoration: none;" class="HU">Hocchan Union</a></h1>
+		<h1><a href="index.html" class="HU">Hocchan Union</a></h1>
 		<p class="btn sf-hidden"></p>
 		<nav class="nav-mobile">
 			<ul>
@@ -45,21 +55,21 @@
 		</nav>
 	</div>
 </header>
-<div id="wrapper" style="flex: 1; display: flex; justify-content: center; align-items: center; flex-direction: column;">
-	<div style="margin-bottom: 86px;">
+<div id="wrapper">
+	<div>
 		<h2>About</h2>
 		<div id="profile">
 			<div id="photo">
-				<img alt="" src="images/horieyui.png" style="width: auto; height:100%;">
+				<img alt="Narusegawa Naru" src="images/horieyui.png">
 			</div>
 			<div id="detail">
-				<h3 style="color: #69c3c8; height: 23px; font-size: 24px;">Hocchan Union</h3>
+				<h3>Hocchan Union</h3>
 				<div class="profile">
 					<dl><dt>Creation Date</dt><dd>September 20, 2024</dd></dl>
 				</div>
 				<p>
 				Our purpose is to archive and preserve every media content of <a href="https://en.wikipedia.org/wiki/Yui_Horie" target="_blank">Horie Yui</a> that is out there on the internet. This comes in a variety forms, offline website archives, albums, singles, DVDs/BDs just to name a few.<br><br>
-				<span style="font-style: italic; font-size:10px;">x4163:<a href="https://pastebin.com/raw/FnRMZWLh" target="_blank" style="margin-left: 10px; color: #69c3c8;">daily archive logs (diary)~</a></span><br>
+				<span>x4163:<a href="https://pastebin.com/raw/FnRMZWLh" target="_blank" style="margin-left: 10px; color: #69c3c8;">daily archive logs (diary)~</a></span><br>
 				I haven't been a Hocchan for very long, but with the time I have spent listening at her voice performances and songs from Anime, I have come to appreciate this artist a lot.<br><br>
 				I started officially working on the archive on September 4 of 2024 with the goal of at least getting a hold of her music albums and singles, but one thing led to another resulting in me contacting several people, and here we are—a group passionate Hocchan fans, I greatly appreciate the time effort they have given (Hocchan Union Admins and Contributors), as well as to the other people who helped out and kicked off the project, again thank you.
 				</p>
@@ -67,7 +77,7 @@
 		</div>
 	</div>
 </div>
-<a href="#Top" id="pageTop" style="opacity: 0; pointer-events: none; transition: opacity 0.2s;"></a>
+<a id="pageTop"></a>
 <footer>
 	<p>x4163#8170</p>
 </footer>
