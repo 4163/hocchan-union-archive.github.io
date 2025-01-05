@@ -49,6 +49,7 @@ container.style.left = '14px';
 container.style.top = '4px';
 container.style.display = 'flex';
 container.style.flexDirection = 'column';
+container.style.gap = '10px';
 container.style.zIndex = '1000';
 
 function smoothScrollToBottom(targetPosition, duration) {
@@ -95,7 +96,6 @@ function createButton(imageSrc, linkHref, baseColor, hoverColor) {
     button.style.width = '225px';
     button.style.height = '36.75px';
     button.style.borderRadius = '18.38px';
-    button.style.marginTop = '10px';
     button.style.position = 'relative';
     button.style.cursor = 'pointer';
     button.style.overflow = 'hidden';
