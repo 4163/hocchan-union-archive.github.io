@@ -67,7 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	function updateButtonWidth() {
 		const h1RightEdge = h1Element.getBoundingClientRect().right;
 		const viewportWidth = window.innerWidth;
-		const buttonWidth = viewportWidth - h1RightEdge - 15;
+		let buttonWidth = viewportWidth - h1RightEdge - 15;
+		buttonWidth = Math.max(buttonWidth, 65); // Ensure minimum width of 65px
 		toggleButton.style.width = `${buttonWidth}px`;
 		console.log(`Button width: ${buttonWidth}px`);
 	}

@@ -3,6 +3,9 @@ document.querySelectorAll('#pageTop').forEach(anchor => {
 	anchor.addEventListener('click', function(e) {
 		e.preventDefault(); // Prevent the default anchor click behavior
 
+		// Set body overflow to hidden
+		document.body.style.overflow = 'hidden';
+
 		// Smooth scroll to the top of the page
 		window.scrollTo({
 			top: 0,
@@ -13,23 +16,30 @@ document.querySelectorAll('#pageTop').forEach(anchor => {
 
 const pageTop = document.getElementById('pageTop');
 
-// Set initial styles
-pageTop.style.opacity = '0';
-pageTop.style.pointerEvents = 'none'; // Prevent clicks when hidden
-pageTop.style.transition = 'opacity 0.2s, background-color 0.2s'; // Smooth transition for fade effect and background color
-pageTop.style.willChange = 'opacity'; // Optimize for opacity changes
+let isFooterVisible = false;
 
-// Function to check scroll position and fade in/out
+const observer = new IntersectionObserver((entries) => {
+	entries.forEach(entry => {
+		if (entry.isIntersecting) {
+			isFooterVisible = true;
+			pageTop.classList.add('pageTopActive');
+			console.log('Footer is visible');
+		} else {
+			isFooterVisible = false;
+		}
+	});
+});
+
 function togglePageTop() {
-	if (window.scrollY <= 100) {
-		// Fade out and disable clicks when within 100px from the top
-		pageTop.style.setProperty('opacity', '0', 'important'); // Ensure opacity updates
-		pageTop.style.pointerEvents = 'none'; // Disable clicks
-		pageTop.style.backgroundColor = '#69c3c8'; // Set background color
+	if (isFooterVisible) {
+		// Do nothing if the footer is visible
+		return;
+	}
+	if (window.scrollY > 100) {
+		pageTop.classList.add('pageTopActive');
 	} else {
-		// Fade in and enable clicks when further than 100px from the top
-		pageTop.style.setProperty('opacity', '1', 'important'); // Ensure opacity updates
-		pageTop.style.pointerEvents = 'auto'; // Enable clicks
+		pageTop.classList.remove('pageTopActive');
+		document.body.style.removeProperty('overflow');
 	}
 }
 
@@ -38,3 +48,11 @@ togglePageTop();
 
 // Add scroll event listener
 window.addEventListener('scroll', togglePageTop);
+
+// Select the footer element
+const footer = document.querySelector('footer');
+
+// Observe the footer element
+if (footer) {
+	observer.observe(footer);
+}
